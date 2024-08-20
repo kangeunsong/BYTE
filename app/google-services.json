@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "267170221566",
+    "firebase_url": "https://byte-d568d-default-rtdb.firebaseio.com",
+    "project_id": "byte-d568d",
+    "storage_bucket": "byte-d568d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:267170221566:android:b3994521160e2b765f84af",
+        "android_client_info": {
+          "package_name": "com.example.open__sw"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9f5DmhuhXR6SMZl5Yy9sN3sx2Xr0MHJM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

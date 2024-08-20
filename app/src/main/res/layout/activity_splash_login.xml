@@ -105,6 +105,20 @@
             android:textSize="14dp" />
 
 
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/loginET"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="30dp"
+            android:alpha="1"
+            android:padding="10dp"
+            android:text="Login"
+            android:textColor="@color/grey"
+            android:clickable="true"
+            android:textSize="14dp" />
+
+
     </LinearLayout>
 
 

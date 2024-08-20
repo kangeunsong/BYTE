@@ -18,7 +18,7 @@
         android:paddingStart="24dp"
         android:paddingTop="12dp"
         android:paddingEnd="24dp"
-        android:text="Welcome\nenjoy your BYTE!"
+        android:text="Welcome to\nenjoy your BYTE!"
         android:textAlignment="textStart"
         android:textColor="@color/black"
         android:textSize="45dp"
@@ -95,6 +95,7 @@
             android:textSize="14sp" />
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/joinET"
             android:layout_width="90dp"
             android:layout_height="wrap_content"
             android:layout_margin="6dp"
