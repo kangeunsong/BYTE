@@ -165,7 +165,9 @@
                         android:gravity="center_vertical"
                         android:paddingStart="8dp"
                         android:text="사용자 이름 "
-                        android:textColor="@color/grey" />
+                        android:textColor="@color/grey"
+                        android:maxLines="1"
+                        android:ellipsize="end" />
 
                     <TextView
                         android:id="@+id/useremailTV"
@@ -174,7 +176,9 @@
                         android:gravity="center_vertical"
                         android:paddingStart="8dp"
                         android:text="사용자 이메일 "
-                        android:textColor="@color/grey" />
+                        android:textColor="@color/grey"
+                        android:maxLines="1"
+                        android:ellipsize="end" />
 
                     <TextView
                         android:id="@+id/userpwTV"
@@ -182,7 +186,7 @@
                         android:layout_height="45dp"
                         android:gravity="center_vertical"
                         android:paddingStart="8dp"
-                        android:text="사용자 비밀번호 "
+                        android:text="******** "
                         android:textColor="@color/grey" />
                 </LinearLayout>
             </LinearLayout>
