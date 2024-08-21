@@ -1,5 +1,6 @@
 package com.example.open__sw
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
@@ -58,6 +59,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         binding.fab.setOnClickListener{
             Toast.makeText(this,"categories",Toast.LENGTH_SHORT).show()
+        }
+
+        binding.userinfo.setOnClickListener {
+            val intent = Intent(this, MypageActivity::class.java)
+            startActivity(intent)
+            overridePendingTransition(R.anim.slidein_vertical, R.anim.slideout_vertical)
+
         }
     }
 

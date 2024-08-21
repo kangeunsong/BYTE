@@ -54,7 +54,7 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     implementation ("androidx.drawerlayout:drawerlayout:1.2.0")
     implementation ("com.google.android.material:material:1.9.0")
-
+    implementation ("androidx.cardview:cardview:1.0.0")
     implementation(platform("com.google.firebase:firebase-bom:33.1.2"))
     implementation("com.google.firebase:firebase-auth-ktx:22.0.0")
 }

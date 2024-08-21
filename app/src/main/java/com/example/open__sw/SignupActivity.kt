@@ -1,6 +1,8 @@
 package com.example.open__sw
 
 import android.os.Bundle
+import android.view.MotionEvent
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -58,5 +60,15 @@ class SignupActivity : AppCompatActivity() {
                     Toast.makeText(this, "Sign up failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                 }
             }
+    }
+
+    /* 외부 화면 터치 시 키보드 사라짐 */
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        if (currentFocus != null) {
+            val inputMethodManager =
+                getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+        }
+        return super.dispatchTouchEvent(ev)
     }
 }

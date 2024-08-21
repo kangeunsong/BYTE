@@ -10,6 +10,7 @@
     app:layoutDescription="@xml/motion_scene_splash">
 
     <FrameLayout
+        android:id="@+id/logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -17,7 +18,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/logo">
+        app:layout_constraintVertical_bias="0.4">
 
         <ImageView
             android:id="@+id/logoimageview"
@@ -51,19 +52,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="50dp"
         android:layout_marginEnd="30dp"
+        android:alpha="0"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.598">
+        app:layout_constraintTop_toBottomOf="@+id/logo">
 
         <EditText
-
             android:id="@+id/emailET"
             android:layout_width="match_parent"
             android:layout_height="65dp"
@@ -91,35 +90,42 @@
             android:padding="16dp"
             android:textSize="14sp" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/signupET"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginTop="30dp"
-            android:alpha="1"
-            android:padding="10dp"
-            android:clickable="true"
-            android:text="Sign up"
-            android:textColor="@color/grey"
-            android:textSize="14dp" />
+            android:layout_marginTop="20dp"
+            android:gravity="end"
+            android:orientation="horizontal">
 
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/signupET"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_margin="3dp"
+                android:alpha="1"
+                android:clickable="true"
+                android:padding="10dp"
+                android:text="Sign up"
+                android:textColor="@color/grey"
+                android:textSize="14dp" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/loginET"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginTop="30dp"
-            android:alpha="1"
-            android:padding="10dp"
-            android:text="Login"
-            android:textColor="@color/grey"
-            android:clickable="true"
-            android:textSize="14dp" />
-
-
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/loginET"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_margin="3dp"
+                android:alpha="1"
+                android:clickable="true"
+                android:padding="10dp"
+                android:text="Login"
+                android:textColor="@color/grey"
+                android:textSize="14dp" />
+        </LinearLayout>
     </LinearLayout>
+
+
 
 
 </androidx.constraintlayout.motion.widget.MotionLayout>

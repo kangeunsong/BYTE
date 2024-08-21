@@ -2,12 +2,14 @@ package com.example.open__sw
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.MotionEvent
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.open__sw.databinding.ActivitySplashLoginBinding
 import com.google.firebase.auth.FirebaseAuth
-
-class ActivitySplashLogin : AnimationActivity(TransitionMode.HORIZON) {
+//AnimationActivity(TransitionMode.HORIZON)
+class ActivitySplashLogin :AppCompatActivity(){
     private lateinit var binding: ActivitySplashLoginBinding
     private lateinit var auth: FirebaseAuth
 
@@ -22,6 +24,7 @@ class ActivitySplashLogin : AnimationActivity(TransitionMode.HORIZON) {
         // Set up the click listener using view binding
         binding.signupET.setOnClickListener {
             val intent = Intent(this, SignupActivity::class.java)
+            overridePendingTransition(R.anim.slidein_horizon, R.anim.slideout_horizon)
             startActivity(intent)
         }
 
@@ -44,6 +47,7 @@ class ActivitySplashLogin : AnimationActivity(TransitionMode.HORIZON) {
                 if (task.isSuccessful) {
                     // Login success
                     val intent = Intent(this, MainActivity::class.java)
+                    overridePendingTransition(R.anim.slidein_vertical, R.anim.slideout_vertical)
                     startActivity(intent)
                     finish()
                 } else {
@@ -51,5 +55,14 @@ class ActivitySplashLogin : AnimationActivity(TransitionMode.HORIZON) {
                     Toast.makeText(this, "Authentication failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                 }
             }
+    }
+    /* 외부 화면 터치 시 키보드 사라짐 */
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        if (currentFocus != null) {
+            val inputMethodManager =
+                getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+        }
+        return super.dispatchTouchEvent(ev)
     }
 }
