@@ -11,9 +11,6 @@ import com.google.firebase.auth.FirebaseAuth
 //AnimationActivity(TransitionMode.HORIZON)
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
-import android.widget.EditText
-import android.widget.ImageView
-
 
 class ActivitySplashLogin :AppCompatActivity(){
     private lateinit var binding: ActivitySplashLoginBinding
@@ -51,11 +48,11 @@ class ActivitySplashLogin :AppCompatActivity(){
             if (isPasswordVisible) {
                 // Hide password
                 binding.passwordET.transformationMethod = PasswordTransformationMethod.getInstance()
-                binding.togglePasswordVisibility.setImageResource(R.drawable.visibility_off_24px) // 감은 눈 아이콘
+                binding.togglePasswordVisibility.setImageResource(R.drawable.visibility_off_24px)
             } else {
                 // Show password
                 binding.passwordET.transformationMethod = HideReturnsTransformationMethod.getInstance()
-                binding.togglePasswordVisibility.setImageResource(R.drawable.visibility_24px) // 열린 눈 아이콘
+                binding.togglePasswordVisibility.setImageResource(R.drawable.visibility_24px)
             }
             isPasswordVisible = !isPasswordVisible
             binding.passwordET.setSelection(binding.passwordET.text.length)
