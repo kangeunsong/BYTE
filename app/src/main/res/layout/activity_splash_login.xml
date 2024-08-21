@@ -76,19 +76,33 @@
             android:padding="16dp"
             android:textSize="14sp" />
 
-        <EditText
-            android:id="@+id/passwordET"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="65dp"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/edittext_bg"
-            android:drawableStart="@drawable/baseline_lock_24"
-            android:drawableLeft="@drawable/baseline_lock_24"
-            android:drawablePadding="16dp"
-            android:hint="Password"
-            android:inputType="textEmailAddress"
-            android:padding="16dp"
-            android:textSize="14sp" />
+            android:layout_marginTop="30dp">
+
+            <EditText
+                android:id="@+id/passwordET"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/edittext_bg"
+                android:drawableStart="@drawable/baseline_lock_24"
+                android:drawablePadding="16dp"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:padding="16dp"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/togglePasswordVisibility"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="5dp"
+                android:layout_gravity="end|center_vertical"
+                android:padding="10dp"
+                android:src="@drawable/visibility_off_24px"
+                android:contentDescription="Toggle Password Visibility" />
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

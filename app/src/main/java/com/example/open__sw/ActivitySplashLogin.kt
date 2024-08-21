@@ -9,9 +9,16 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.open__sw.databinding.ActivitySplashLoginBinding
 import com.google.firebase.auth.FirebaseAuth
 //AnimationActivity(TransitionMode.HORIZON)
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
+import android.widget.EditText
+import android.widget.ImageView
+
+
 class ActivitySplashLogin :AppCompatActivity(){
     private lateinit var binding: ActivitySplashLoginBinding
     private lateinit var auth: FirebaseAuth
+    private var isPasswordVisible: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +45,20 @@ class ActivitySplashLogin :AppCompatActivity(){
             } else {
                 Toast.makeText(this, "Please enter email and password", Toast.LENGTH_SHORT).show()
             }
+        }
+
+        binding.togglePasswordVisibility.setOnClickListener {
+            if (isPasswordVisible) {
+                // Hide password
+                binding.passwordET.transformationMethod = PasswordTransformationMethod.getInstance()
+                binding.togglePasswordVisibility.setImageResource(R.drawable.visibility_off_24px) // 감은 눈 아이콘
+            } else {
+                // Show password
+                binding.passwordET.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                binding.togglePasswordVisibility.setImageResource(R.drawable.visibility_24px) // 열린 눈 아이콘
+            }
+            isPasswordVisible = !isPasswordVisible
+            binding.passwordET.setSelection(binding.passwordET.text.length)
         }
     }
 
