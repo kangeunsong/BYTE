@@ -56,6 +56,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             true
         }
 
+        sharedViewModel.select("some_value")
         openFragment(HomeFragment())
 
         binding.fab.setOnClickListener{

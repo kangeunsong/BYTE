@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class ShareViewModel : ViewModel() {
-    private val _selected = MutableLiveData<String>()
+    private val _selected = MutableLiveData<String>().apply { value = "default_value" }
     val selected: LiveData<String> get() = _selected
 
     fun select(item: String) {
