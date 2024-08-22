@@ -88,12 +88,8 @@ class MypageFragment : Fragment() {
                             fragmentTransaction.addToBackStack(null) // 뒤로 가기 버튼으로 이전 프래그먼트로 돌아갈 수 있도록 백스택에 추가
                             fragmentTransaction.commit()
                         } else {
-                            Toast.makeText(requireContext(), "비밀번호가 틀립니다.", Toast.LENGTH_SHORT).show()
                             passwordET.error = "비밀번호가 일치하지 않습니다."
                         }
-                    }
-                    .addOnFailureListener {
-                        Toast.makeText(requireContext(), "비밀번호 검증 실패: ${it.message}", Toast.LENGTH_SHORT).show()
                     }
             } else {
                 Toast.makeText(requireContext(), "사용자 정보가 없습니다.", Toast.LENGTH_SHORT).show()
