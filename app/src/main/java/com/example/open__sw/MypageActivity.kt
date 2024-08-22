@@ -14,10 +14,10 @@ class MypageActivity :  AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMypageBinding.inflate(layoutInflater)
-        setContentView(binding.root) // 바인딩의 root를 setContentView로 설정해야 합니다.
+        setContentView(binding.root)
 
         // Toolbar 설정
-        val toolbar: Toolbar = binding.toolbar // binding을 사용해 뷰에 접근합니다.
+        val toolbar: Toolbar = binding.toolbar
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
