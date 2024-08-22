@@ -104,6 +104,15 @@
                 android:contentDescription="Toggle Password Visibility" />
         </FrameLayout>
 
+        <CheckBox
+            android:id="@+id/checkboxET"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="auto login"
+            android:textColor="@color/grey"
+            android:textSize="14sp" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
