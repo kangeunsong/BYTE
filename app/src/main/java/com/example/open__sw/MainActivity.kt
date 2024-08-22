@@ -132,9 +132,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-    private fun openFragment(fragment: Fragment){
-        val fragmentTransaction: FragmentTransaction=fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.fragment_container,fragment)
+    private fun openFragment(fragment: Fragment) {
+        val fragmentTransaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.fragment_container, fragment)
         fragmentTransaction.commit()
     }
 }
