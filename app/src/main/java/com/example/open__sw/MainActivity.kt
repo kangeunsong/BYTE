@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private lateinit var binding: ActivityMainBinding
     private val sharedViewModel: ShareViewModel by viewModels()
+    public var sectionKR = "정치"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,37 +78,43 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         bottomSheetDialog.setContentView(view)
 
         view.findViewById<TextView>(R.id.option_politics)?.setOnClickListener {
-            sharedViewModel.select("politics")
+            sectionKR = "정치"
+            updateFragmentWithSection(sectionKR)
             bottomSheetDialog.dismiss()
             Toast.makeText(this, "Selected: politics", Toast.LENGTH_SHORT).show()
         }
 
         view.findViewById<TextView>(R.id.option_economy)?.setOnClickListener {
-            sharedViewModel.select("economy")
+            sectionKR = "경제"
+            updateFragmentWithSection(sectionKR)
             bottomSheetDialog.dismiss()
             Toast.makeText(this, "Selected: economy", Toast.LENGTH_SHORT).show()
         }
 
         view.findViewById<TextView>(R.id.option_society)?.setOnClickListener {
-            sharedViewModel.select("society")
+            sectionKR = "사회"
+            updateFragmentWithSection(sectionKR)
             bottomSheetDialog.dismiss()
             Toast.makeText(this, "Selected: society", Toast.LENGTH_SHORT).show()
         }
 
         view.findViewById<TextView>(R.id.option_life_culture)?.setOnClickListener {
-            sharedViewModel.select("life/culture")
+            sectionKR = "생활/문화"
+            updateFragmentWithSection(sectionKR)
             bottomSheetDialog.dismiss()
             Toast.makeText(this, "Selected: life/culture", Toast.LENGTH_SHORT).show()
         }
 
         view.findViewById<TextView>(R.id.option_world)?.setOnClickListener {
-            sharedViewModel.select("world")
+            sectionKR = "세계"
+            updateFragmentWithSection(sectionKR)
             bottomSheetDialog.dismiss()
             Toast.makeText(this, "Selected: world", Toast.LENGTH_SHORT).show()
         }
 
         view.findViewById<TextView>(R.id.option_it_science)?.setOnClickListener {
-            sharedViewModel.select("IT/science")
+            sectionKR = "IT/과학"
+            updateFragmentWithSection(sectionKR)
             bottomSheetDialog.dismiss()
             Toast.makeText(this, "Selected: IT/science", Toast.LENGTH_SHORT).show()
         }
@@ -134,9 +141,31 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun openFragment(fragment: Fragment) {
-        val fragmentTransaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.fragment_container, fragment)
-        fragmentTransaction.commit()
+//        val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
+//
+//        val bundle = Bundle()
+//        bundle.putString("sectionKR", sectionKR)
+//        fragment.arguments = bundle
+//
+//        val fragmentTransaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+//
+//        if (currentFragment != null) {
+//            fragmentTransaction.remove(currentFragment)
+//        }
+//
+//        fragmentTransaction.add(R.id.fragment_container, fragment)
+//        fragmentTransaction.addToBackStack(null)
+//        fragmentTransaction.commit()
+
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .commit()
+    }
+
+    private fun updateFragmentWithSection(section: String) {
+        val bundle = Bundle()
+        bundle.putString("sectionKR", section)
+        supportFragmentManager.setFragmentResult("requestKey", bundle)
     }
 }
 
