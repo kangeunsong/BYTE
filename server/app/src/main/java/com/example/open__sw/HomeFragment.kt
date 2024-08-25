@@ -1,5 +1,7 @@
 package com.example.open__sw
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -29,6 +31,17 @@ class HomeFragment : Fragment() {
         newsTitleTextView = view.findViewById(R.id.news_title)
         newsSummaryTextView = view.findViewById(R.id.news_summary)
         newsLinkTextView = view.findViewById(R.id.news_link)
+
+        newsLinkTextView.setOnClickListener {
+            val url = newsLinkTextView.text.toString()
+            if (url.isNotEmpty()) {
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.data = Uri.parse(url)
+                startActivity(intent)
+            } else {
+                Toast.makeText(requireContext(), "유효한 링크가 없습니다.", Toast.LENGTH_SHORT).show()
+            }
+        }
 
         return view
     }
