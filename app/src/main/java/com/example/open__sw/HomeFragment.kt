@@ -59,7 +59,7 @@ class HomeFragment : Fragment() {
 
         // 요청 작성
         val request = Request.Builder()
-            .url("http://172.30.1.95:5000/summarize")  // 여기서 IP와 포트는 api.py에서 실행 중인 서버에 맞춰 변경하세요.
+            .url("http://192.168.0.5:5000/summarize")  // 여기서 IP와 포트는 api.py에서 실행 중인 서버에 맞춰 변경하세요.
             .post(requestBody)
             .build()
 

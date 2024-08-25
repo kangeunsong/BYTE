@@ -13,6 +13,9 @@ import com.google.firebase.auth.FirebaseAuth
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.content.SharedPreferences
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import java.io.IOException
 
 class ActivitySplashLogin :AppCompatActivity(){
     private lateinit var binding: ActivitySplashLoginBinding
@@ -76,6 +79,10 @@ class ActivitySplashLogin :AppCompatActivity(){
                     if (isAutoLoginChecked) {
                         saveLoginDetails(email, password)
                     }
+
+//                    // 로그인 성공 시 Python 스크립트 실행
+//                    runPythonScript()
+
                     // Login success
                     val intent = Intent(this, MainActivity::class.java)
                     overridePendingTransition(R.anim.slidein_vertical, R.anim.slideout_vertical)
@@ -116,4 +123,20 @@ class ActivitySplashLogin :AppCompatActivity(){
         }
         return super.dispatchTouchEvent(ev)
     }
+
+//    private fun runPythonScript() {
+//        val client = OkHttpClient()
+//
+//        val request = Request.Builder()
+//            .url("http://192.168.0.5:5000/summarize") // Flask 서버의 URL
+//            .build()
+//
+//        client.newCall(request).execute().use { response ->
+//            if (!response.isSuccessful) throw IOException("Unexpected code $response")
+//
+//            // 서버에서 받은 응답 처리
+//            val responseData = response.body?.string()
+//            println(responseData)
+//        }
+//    }
 }
