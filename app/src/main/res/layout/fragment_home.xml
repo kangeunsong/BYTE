@@ -1,69 +1,21 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- fragment_home.xml -->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_gravity="center"
+    android:background="@color/white"
     tools:context=".HomeFragment">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardView1"
-        android:layout_width="match_parent"
-        android:layout_height="450dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp"
-        app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="10dp"
-        android:layout_gravity="center"
-        app:cardElevation="0dp"
-        app:strokeColor="#D3D3D3"
-        app:strokeWidth="1dp">
-<!--       <ImageView-->
-<!--           android:id="@+id/news_img"-->
-<!--           android:layout_width="match_parent"-->
-<!--           android:layout_height="300dp"-->
-<!--           android:src="@drawable/newsimg"-->
-<!--           android:layout_gravity="center_horizontal"-->
-<!--           android:layout_marginTop="15dp"/>-->
+    <alirezat775.lib.carouselview.CarouselView
+        android:id="@+id/carouselView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent" />
 
-        <TextView
-            android:id="@+id/news_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="삼성, 스마트폰 1위 지켜 2분기 세계 점유율 19%"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:textSize="20dp"
-            android:layout_gravity="center|top"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="30dp"
-            />
-
-        <TextView
-            android:id="@+id/news_context"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="삼성전자는 2024년 2분기 글로벌 스마트폰 시장에서 19%의 점유율로 1위를 유지했으며, 전체 출하량이 전년 동기 대비 8% 증가했습니다. 한국 시장에서는 삼성전자가 76%의 점유율로 점유율을 확대했고, 애플은 22%로 하락했습니다. 삼성전자는 갤럭시 A와 갤럭시 S24 시리즈의 판매 증가로 높은 성과를 기록했으며, 올해 갤럭시 AI를 적용한 신제품을 출시할 계획입니다."
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:textSize="20dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="4dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="4dp"
-            android:layout_marginBottom="30dp"
-            />
-<!--        <ImageView-->
-<!--            android:id="@+id/news_detail"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:src="@drawable/baseline_arrow_forward_ios_24"-->
-<!--            android:layout_gravity="center|bottom"-->
-<!--            android:layout_marginBottom="1dp"-->
-<!--            android:rotation="90"-->
-<!--            app:tint="#575757" />-->
-    </com.google.android.material.card.MaterialCardView>
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
