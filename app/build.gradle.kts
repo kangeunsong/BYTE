@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     id("com.google.gms.google-services")
+
 }
 
 android {
@@ -52,6 +53,10 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    implementation ("androidx.recyclerview:recyclerview:1.2.0-alpha02")
+    implementation ("com.github.alirezat775:carousel-view:1.1.1")
+
     implementation("androidx.drawerlayout:drawerlayout:1.2.0")
     implementation("com.google.android.material:material:1.9.0")
     implementation("androidx.cardview:cardview:1.0.0")
@@ -65,4 +70,7 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.9.3")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.5.1")
+
+    implementation(kotlin("script-runtime"))
+
 }

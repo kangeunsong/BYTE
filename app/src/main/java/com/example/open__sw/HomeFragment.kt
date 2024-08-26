@@ -1,20 +1,29 @@
 package com.example.open__sw
 
+import alirezat775.lib.carouselview.Carousel
+import alirezat775.lib.carouselview.CarouselListener
+import alirezat775.lib.carouselview.CarouselView
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Toast
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import com.example.open__sw.databinding.FragmentHomeBinding
 import android.widget.TextView
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
 import org.json.JSONObject
 import java.io.IOException
-import android.util.Log
 import androidx.fragment.app.setFragmentResultListener
 
 class HomeFragment : Fragment() {
+
+    private val TAG: String = this::class.java.simpleName
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
 
     private val client = OkHttpClient()
     private lateinit var newsTitleTextView: TextView
@@ -25,12 +34,46 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         newsTitleTextView = view.findViewById(R.id.news_title)
         newsSummaryTextView = view.findViewById(R.id.news_summary)
         newsLinkTextView = view.findViewById(R.id.news_link)
 
-        return view
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val activity = requireActivity()
+        if (activity is AppCompatActivity) {
+            val adapter = SampleAdapter()
+            val carousel = Carousel(activity, binding.carouselView, adapter)
+            carousel.setOrientation(CarouselView.VERTICAL, false)
+            carousel.scaleView(true)
+            adapter.setOnClickListener(object : SampleAdapter.OnClick {
+                override fun click(model: SampleModel) {
+                    // Handle item click
+                }
+            })
+
+            carousel.addCarouselListener(object : CarouselListener {
+                override fun onPositionChange(position: Int) {
+                    Log.d(TAG, "currentPosition : $position")
+                }
+
+                override fun onScroll(dx: Int, dy: Int) {
+                    Log.d(TAG, "onScroll dx : $dx -- dy : $dy")
+                }
+            })
+
+            for (i in 1..10) {
+                carousel.add(SampleModel(i))
+            }
+        } else {
+            Log.e(TAG, "Host activity is not an instance of AppCompatActivity")
+        }
     }
 
     override fun onResume() {
@@ -46,27 +89,19 @@ class HomeFragment : Fragment() {
         }
     }
 
-
     private fun fetchSummary(section: String, titleView: TextView, summaryView: TextView, linkView: TextView) {
-
-        // API 요청을 위한 JSON 데이터
         val json = JSONObject().apply {
             put("section", section)
         }
 
-        // 요청 본문 작성
         val requestBody = RequestBody.create("application/json; charset=utf-8".toMediaType(), json.toString())
-
-        // 요청 작성
         val request = Request.Builder()
-            .url("http://192.168.0.5:5000/summarize")  // 여기서 IP와 포트는 api.py에서 실행 중인 서버에 맞춰 변경하세요.
+            .url("http://192.168.0.5:5000/summarize")
             .post(requestBody)
             .build()
 
-        // 비동기 요청 실행
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                // 요청 실패 시 처리
                 e.printStackTrace()
                 Log.e("HomeFragment", "API 호출 실패: ${e.message}")
                 activity?.runOnUiThread {
@@ -82,7 +117,6 @@ class HomeFragment : Fragment() {
                         val summary = jsonResponse.getString("summary")
                         val url = jsonResponse.getString("url")
 
-                        // UI 업데이트는 메인 스레드에서 실행
                         activity?.runOnUiThread {
                             titleView.text = title
                             summaryView.text = summary
@@ -97,5 +131,10 @@ class HomeFragment : Fragment() {
                 }
             }
         })
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
