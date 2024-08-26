@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">192.168.0.5</domain> <!-- 허용하고자 하는 IP 주소 -->
+    </domain-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">localhost</domain> <!-- 로컬호스트를 사용할 경우 -->
+    </domain-config>
+</network-security-config>

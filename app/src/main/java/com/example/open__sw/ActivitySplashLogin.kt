@@ -1,6 +1,7 @@
 package com.example.open__sw
 
 import android.content.Intent
+import android.content.Context
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
@@ -11,11 +12,16 @@ import com.google.firebase.auth.FirebaseAuth
 //AnimationActivity(TransitionMode.HORIZON)
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
+import android.content.SharedPreferences
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import java.io.IOException
 
 class ActivitySplashLogin :AppCompatActivity(){
     private lateinit var binding: ActivitySplashLoginBinding
     private lateinit var auth: FirebaseAuth
     private var isPasswordVisible: Boolean = false
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +30,12 @@ class ActivitySplashLogin :AppCompatActivity(){
 
         // Initialize Firebase Auth
         auth = FirebaseAuth.getInstance()
+
+        // Initialize SharedPreferences
+        sharedPreferences = getSharedPreferences("loginPrefs", Context.MODE_PRIVATE)
+
+        // Check if auto-login is enabled and perform login
+        checkAutoLogin()
 
         // Set up the click listener using view binding
         binding.signupET.setOnClickListener {
@@ -36,9 +48,10 @@ class ActivitySplashLogin :AppCompatActivity(){
         binding.loginET.setOnClickListener {
             val email = binding.emailET.text.toString().trim()
             val password = binding.passwordET.text.toString().trim()
+            val isAutoLoginChecked = binding.checkboxET.isChecked
 
             if (email.isNotEmpty() && password.isNotEmpty()) {
-                loginUser(email, password)
+                loginUser(email, password, isAutoLoginChecked)
             } else {
                 Toast.makeText(this, "Please enter email and password", Toast.LENGTH_SHORT).show()
             }
@@ -59,10 +72,17 @@ class ActivitySplashLogin :AppCompatActivity(){
         }
     }
 
-    private fun loginUser(email: String, password: String) {
+    private fun loginUser(email: String, password: String, isAutoLoginChecked: Boolean) {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
+                    if (isAutoLoginChecked) {
+                        saveLoginDetails(email, password)
+                    }
+
+//                    // 로그인 성공 시 Python 스크립트 실행
+//                    runPythonScript()
+
                     // Login success
                     val intent = Intent(this, MainActivity::class.java)
                     overridePendingTransition(R.anim.slidein_vertical, R.anim.slideout_vertical)
@@ -74,6 +94,26 @@ class ActivitySplashLogin :AppCompatActivity(){
                 }
             }
     }
+
+    private fun saveLoginDetails(email: String, password: String) {
+        with(sharedPreferences.edit()) {
+            putBoolean("autoLogin", true)
+            putString("email", email)
+            putString("password", password)
+            apply()
+        }
+    }
+
+    private fun checkAutoLogin() {
+        val autoLogin = sharedPreferences.getBoolean("autoLogin", false)
+        val email = sharedPreferences.getString("email", null)
+        val password = sharedPreferences.getString("password", null)
+
+        if (autoLogin && email != null && password != null) {
+            loginUser(email, password, false)
+        }
+    }
+
     /* 외부 화면 터치 시 키보드 사라짐 */
     override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
         if (currentFocus != null) {
@@ -83,4 +123,20 @@ class ActivitySplashLogin :AppCompatActivity(){
         }
         return super.dispatchTouchEvent(ev)
     }
+
+//    private fun runPythonScript() {
+//        val client = OkHttpClient()
+//
+//        val request = Request.Builder()
+//            .url("http://192.168.0.5:5000/summarize") // Flask 서버의 URL
+//            .build()
+//
+//        client.newCall(request).execute().use { response ->
+//            if (!response.isSuccessful) throw IOException("Unexpected code $response")
+//
+//            // 서버에서 받은 응답 처리
+//            val responseData = response.body?.string()
+//            println(responseData)
+//        }
+//    }
 }
