@@ -11,11 +11,15 @@ class SampleAdapter : CarouselAdapter() {
     private val EMPTY_ITEM = 0
     private val NORMAL_ITEM = 1
 
-    private var vh: CarouselViewHolder? = null
     var onClick: OnClick? = null
 
     fun setOnClickListener(onClick: OnClick?) {
         this.onClick = onClick
+    }
+
+    fun addItems(items: List<SampleModel>) {
+        getItems().addAll(items)
+        notifyDataSetChanged()
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -39,12 +43,17 @@ class SampleAdapter : CarouselAdapter() {
     override fun onBindViewHolder(holder: CarouselViewHolder, position: Int) {
         when (holder) {
             is MyViewHolder -> {
-                vh = holder
                 val model = getItems()[position] as SampleModel
-                holder.binding.itemText.text = model.getId().toString()
+                holder.binding.newsTitle.text = model.title
+                holder.binding.newsSummary.text = model.context
+
+                // 하트 이미지 상태 설정
+                holder.binding.likeButton.setImageResource(
+                    if (model.islikeFilled) R.drawable.ic_like_filled
+                    else R.drawable.ic_like_empty
+                )
             }
             is EmptyMyViewHolder -> {
-                vh = holder
                 val model = getItems()[position] as EmptySampleModel
                 holder.binding.itemEmptyText.text = model.getText()
             }
@@ -52,9 +61,18 @@ class SampleAdapter : CarouselAdapter() {
     }
 
     inner class MyViewHolder(val binding: ItemCarouselBinding) : CarouselViewHolder(binding.root) {
-
         init {
-            binding.itemText.setOnClickListener { onClick?.click(getItems()[adapterPosition] as SampleModel) }
+            binding.likeButton.setOnClickListener {
+                val position = adapterPosition
+                val model = getItems()[position] as SampleModel
+
+                // 하트 상태를 토글
+                model.islikeFilled = !model.islikeFilled
+
+                // UI 갱신
+                notifyItemChanged(position)
+                onClick?.click(model)
+            }
         }
     }
 
