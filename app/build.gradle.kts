@@ -70,7 +70,8 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.9.3")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.5.1")
+    implementation("com.google.firebase:firebase-firestore-ktx:24.4.0")
+    implementation("com.github.bumptech.glide:glide:4.12.0")
 
     implementation(kotlin("script-runtime"))
-
 }

@@ -44,6 +44,12 @@
                 android:textStyle="bold"
                 android:layout_marginTop="10dp"/>
 
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"/>
+
             <TextView
                 android:id="@+id/news_link"
                 android:layout_width="wrap_content"
@@ -55,6 +61,7 @@
                 android:textStyle="bold"
                 android:layout_marginTop="10dp"/>
 
+
             <Button
                 android:id="@+id/updateNewsButton"
                 android:layout_width="wrap_content"
@@ -62,13 +69,15 @@
                 android:text="Update today's news"
                 android:visibility="gone"
                 android:layout_marginTop="10dp"/>
+
             <ImageButton
                 android:id="@+id/like_button"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:background="@android:color/transparent"
                 android:src="@drawable/ic_like_empty"
                 android:layout_gravity="center"
+                android:contentDescription="@string/like_button_description"
                />
 
         </LinearLayout>

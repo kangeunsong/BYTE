@@ -5,6 +5,7 @@ import com.example.open__sw.databinding.ItemEmptyCarouselBinding
 import alirezat775.lib.carouselview.CarouselAdapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
 
 class SampleAdapter : CarouselAdapter() {
 
@@ -18,6 +19,7 @@ class SampleAdapter : CarouselAdapter() {
     }
 
     fun addItems(items: List<SampleModel>) {
+        getItems().clear()
         getItems().addAll(items)
         notifyDataSetChanged()
     }
@@ -45,7 +47,12 @@ class SampleAdapter : CarouselAdapter() {
             is MyViewHolder -> {
                 val model = getItems()[position] as SampleModel
                 holder.binding.newsTitle.text = model.title
-                holder.binding.newsSummary.text = model.context
+                holder.binding.newsSummary.text = model.summary
+                holder.binding.newsLink.text = model.newsURL
+
+                Glide.with(holder.binding.imageView.context)
+                    .load(model.imgURL)
+                    .into(holder.binding.imageView)
 
                 // 하트 이미지 상태 설정
                 holder.binding.likeButton.setImageResource(

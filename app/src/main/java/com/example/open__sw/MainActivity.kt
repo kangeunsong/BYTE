@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private lateinit var binding: ActivityMainBinding
     private val sharedViewModel: ShareViewModel by viewModels()
-    public var sectionKR = "정치"
+    var sectionEG = "Politics"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,43 +79,43 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         bottomSheetDialog.setContentView(view)
 
         view.findViewById<TextView>(R.id.option_politics)?.setOnClickListener {
-            sectionKR = "정치"
-            updateFragmentWithSection(sectionKR)
+            sectionEG = "Politics"
+            updateFragmentWithSection(sectionEG)
             bottomSheetDialog.dismiss()
             Toast.makeText(this, "Selected: politics", Toast.LENGTH_SHORT).show()
         }
 
         view.findViewById<TextView>(R.id.option_economy)?.setOnClickListener {
-            sectionKR = "경제"
-            updateFragmentWithSection(sectionKR)
+            sectionEG = "Economy"
+            updateFragmentWithSection(sectionEG)
             bottomSheetDialog.dismiss()
             Toast.makeText(this, "Selected: economy", Toast.LENGTH_SHORT).show()
         }
 
         view.findViewById<TextView>(R.id.option_society)?.setOnClickListener {
-            sectionKR = "사회"
-            updateFragmentWithSection(sectionKR)
+            sectionEG = "Society"
+            updateFragmentWithSection(sectionEG)
             bottomSheetDialog.dismiss()
             Toast.makeText(this, "Selected: society", Toast.LENGTH_SHORT).show()
         }
 
         view.findViewById<TextView>(R.id.option_life_culture)?.setOnClickListener {
-            sectionKR = "생활/문화"
-            updateFragmentWithSection(sectionKR)
+            sectionEG = "LifeCulture"
+            updateFragmentWithSection(sectionEG)
             bottomSheetDialog.dismiss()
             Toast.makeText(this, "Selected: life/culture", Toast.LENGTH_SHORT).show()
         }
 
         view.findViewById<TextView>(R.id.option_world)?.setOnClickListener {
-            sectionKR = "세계"
-            updateFragmentWithSection(sectionKR)
+            sectionEG = "World"
+            updateFragmentWithSection(sectionEG)
             bottomSheetDialog.dismiss()
             Toast.makeText(this, "Selected: world", Toast.LENGTH_SHORT).show()
         }
 
         view.findViewById<TextView>(R.id.option_it_science)?.setOnClickListener {
-            sectionKR = "IT/과학"
-            updateFragmentWithSection(sectionKR)
+            sectionEG = "ITScience"
+            updateFragmentWithSection(sectionEG)
             bottomSheetDialog.dismiss()
             Toast.makeText(this, "Selected: IT/science", Toast.LENGTH_SHORT).show()
         }
@@ -142,31 +142,24 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun openFragment(fragment: Fragment) {
-//        val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
-//
-//        val bundle = Bundle()
-//        bundle.putString("sectionKR", sectionKR)
-//        fragment.arguments = bundle
-//
-//        val fragmentTransaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-//
-//        if (currentFragment != null) {
-//            fragmentTransaction.remove(currentFragment)
-//        }
-//
-//        fragmentTransaction.add(R.id.fragment_container, fragment)
-//        fragmentTransaction.addToBackStack(null)
-//        fragmentTransaction.commit()
-
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)
             .commit()
     }
 
     private fun updateFragmentWithSection(section: String) {
-        val bundle = Bundle()
-        bundle.putString("sectionKR", section)
-        supportFragmentManager.setFragmentResult("requestKey", bundle)
+//        val bundle = Bundle()
+//        bundle.putString("sectionEG", section)
+//        supportFragmentManager.setFragmentResult("requestKey", bundle)
+
+        val fragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
+        if (fragment is HomeFragment) {
+            fragment.updateSection(section)
+        } else {
+            val bundle = Bundle()
+            bundle.putString("sectionEG", section)
+            supportFragmentManager.setFragmentResult("requestKey", bundle)
+        }
     }
 }
 
