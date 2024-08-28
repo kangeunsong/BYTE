@@ -96,4 +96,18 @@
 <br/>
 
 ## 라이센스
-이 프로젝트는 [CarouselRecyclerview](https://github.com/sparrow007/CarouselRecyclerview.git)의 일부 코드를 사용합니다. 이 코드는 [Apache-2.0 license] 하에 라이센스가 부여되어 있습니다. 라이선스의 전체 내용은 [LICENSE](LICENSE)에서 확인할 수 있습니다.
+
+이 프로젝트는 다음과 같은 오픈소스 라이브러리를 사용합니다:
+
+### CarouselRecyclerview
+
+- **저작권**: [sparrow007]
+- **라이선스**: [Apache License 2.0](https://opensource.org/licenses/Apache-2.0)
+- **라이선스 URL**: https://opensource.org/licenses/Apache-2.0
+
+이 프로젝트는 CarouselRecyclerview의 일부 코드를 사용하고 있습니다. 이 코드는 [Apache License 2.0](https://opensource.org/licenses/Apache-2.0) 하에 라이센스가 부여되어 있습니다. 라이선스의 전체 내용은 [LICENSE](LICENSE)에서 확인할 수 있습니다.
+
+**저작권 고지:**
+- 원본 코드와 함께 제공된 모든 저작권 고지와 라이선스 고지를 유지해야 합니다. 원본 소스에 포함된 저작권 고지를 수정하거나 삭제하지 말아야 합니다.
+
+
