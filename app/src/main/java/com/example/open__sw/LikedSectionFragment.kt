@@ -42,6 +42,7 @@ class LikedSectionFragment : Fragment() {
         adapter.setOnItemClickListener { position ->
             val newsItem = newsList[position]
             val dialog = NewsDetailDialog.newInstance(sectionName, newsItem.date, newsItem.newsUID)
+            dialog.setTargetFragment(this, 0)
             dialog.show(parentFragmentManager, "NewsDetailDialog")
         }
 
@@ -52,14 +53,25 @@ class LikedSectionFragment : Fragment() {
 
     fun removeNewsFromList(newsUID: String) {
         val iterator = newsList.iterator()
+        var position = -1
         while (iterator.hasNext()) {
             val newsItem = iterator.next()
+            position++
             if (newsItem.newsUID == newsUID) {
                 iterator.remove()
-                adapter.notifyDataSetChanged()
+                adapter.notifyItemRemoved(position) // 특정 위치의 아이템이 삭제되었음을 알림
+                Log.d("LikedSectionFragment", "Removed item at position: $position")
+                Log.d("LikedSectionFragment", "Remaining items count: ${newsList.size}")
+
                 break
             }
         }
+    }
+
+    fun refreshNewsList() {
+        Log.d("LikedSectionFragment", "Refreshing news list")
+        val sectionName = arguments?.getString("sectionName") ?: return
+        loadLikedNews(sectionName)
     }
 
     private fun loadLikedNews(sectionName: String) {

@@ -1,7 +1,7 @@
 package com.example.open__sw
 
-import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,6 +42,7 @@ class NewsDetailDialog : DialogFragment() {
         unlikeButton = view.findViewById(R.id.unlikeButton)
 
         firestore = FirebaseFirestore.getInstance()
+        auth = FirebaseAuth.getInstance()
 
         val sectionName = arguments?.getString("sectionName") ?: return view
         val date = arguments?.getString("date") ?: return view
@@ -89,13 +90,15 @@ class NewsDetailDialog : DialogFragment() {
     }
 
     private fun showUnlikeConfirmationDialog(sectionName: String, date: String, newsUID: String) {
-        AlertDialog.Builder(requireContext())
+        val dialog = androidx.appcompat.app.AlertDialog.Builder(requireContext())
+            .setTitle("좋아요 취소")
             .setMessage("좋아요를 취소하시겠습니까?")
             .setPositiveButton("Yes") { _, _ ->
                 removeLikedNews(sectionName, date, newsUID)
             }
             .setNegativeButton("No", null)
-            .show()
+            .create()
+        dialog.show()
     }
 
     private fun removeLikedNews(sectionName: String, date: String, newsUID: String) {
@@ -104,13 +107,40 @@ class NewsDetailDialog : DialogFragment() {
         firestore.collection("MyPage").document(uid)
             .collection("Liked").document(sectionName)
             .collection("news").document(date)
-            .update(mapOf("newsUID" to FieldValue.delete()))
-            .addOnSuccessListener {
-                dismiss() // 팝업 닫기
-                (parentFragment as? LikedSectionFragment)?.removeNewsFromList(newsUID)
+            .get()
+            .addOnSuccessListener { document ->
+                if (document.exists()) {
+                    for (field in document.data?.entries.orEmpty()) {
+                        if (field.value == newsUID) {
+                            val fieldName = field.key
+                            firestore.runTransaction { transaction ->
+                                val likedNewsRef = firestore.collection("MyPage").document(uid)
+                                    .collection("Liked").document(sectionName)
+                                    .collection("news").document(date)
+
+                                val newsRef = firestore.collection("AllNews").document(sectionName)
+                                    .collection(date).document(newsUID)
+
+                                transaction.update(likedNewsRef, fieldName, FieldValue.delete())
+                                transaction.update(newsRef, "likeNUM", FieldValue.increment(-1))
+                            }.addOnSuccessListener {
+
+                                // targetFragment를 이용해 통신합니다.
+                                (targetFragment as? LikedSectionFragment)?.let { fragment ->
+                                    fragment.removeNewsFromList(newsUID)
+                                    fragment.refreshNewsList()
+                                }
+                                dismiss() // 다이얼로그 닫기
+                            }.addOnFailureListener { e ->
+                                Log.e("NewsDetailDialog", "Failed to unlike news and decrease likeNUM", e)
+                            }
+                            break
+                        }
+                    }
+                }
             }
             .addOnFailureListener { e ->
-                // 실패 시 처리
+                Log.e("NewsDetailDialog", "Failed to fetch liked news document for deletion", e)
             }
     }
 
