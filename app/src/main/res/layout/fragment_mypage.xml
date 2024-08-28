@@ -282,33 +282,33 @@
                             android:layout_height="1dp"
                             android:background="#D3D3D3" />
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:gravity="center_vertical"-->
+<!--                            android:orientation="horizontal">-->
 
-                            <ImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:layout_marginLeft="10dp"
-                                android:src="@drawable/save" />
+<!--                            <ImageView-->
+<!--                                android:layout_width="20dp"-->
+<!--                                android:layout_height="20dp"-->
+<!--                                android:layout_marginLeft="10dp"-->
+<!--                                android:src="@drawable/save" />-->
 
-                            <TextView
-                                android:id="@+id/save"
-                                android:layout_width="100dp"
-                                android:layout_height="48dp"
-                                android:gravity="center_vertical"
-                                android:paddingStart="8dp"
-                                android:text="저장" />
+<!--                            <TextView-->
+<!--                                android:id="@+id/save"-->
+<!--                                android:layout_width="100dp"-->
+<!--                                android:layout_height="48dp"-->
+<!--                                android:gravity="center_vertical"-->
+<!--                                android:paddingStart="8dp"-->
+<!--                                android:text="저장" />-->
 
-                            <ImageView
-                                android:layout_width="15dp"
-                                android:layout_height="match_parent"
-                                android:layout_marginLeft="280dp"
-                                android:src="@drawable/baseline_arrow_forward_ios_24"
-                                app:tint="@color/grey" />
-                        </LinearLayout>
+<!--                            <ImageView-->
+<!--                                android:layout_width="15dp"-->
+<!--                                android:layout_height="match_parent"-->
+<!--                                android:layout_marginLeft="280dp"-->
+<!--                                android:src="@drawable/baseline_arrow_forward_ios_24"-->
+<!--                                app:tint="@color/grey" />-->
+<!--                        </LinearLayout>-->
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
                 <TextView
