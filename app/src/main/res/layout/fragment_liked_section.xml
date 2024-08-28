@@ -34,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <!-- 활동관리 카드뷰 -->
+
 <!--        <com.google.android.material.card.MaterialCardView-->
 <!--            android:id="@+id/cardView2"-->
 <!--            android:layout_width="match_parent"-->
@@ -247,5 +247,5 @@
 <!--                </LinearLayout>-->
 <!--            </LinearLayout>-->
 <!--        </com.google.android.material.card.MaterialCardView>-->
-    </LinearLayout>
+<!--     </LinearLayout> -->
 </LinearLayout>

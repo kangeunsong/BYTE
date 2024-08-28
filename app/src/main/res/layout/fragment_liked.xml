@@ -65,7 +65,16 @@
                         android:layout_height="48dp"
                         android:gravity="center_vertical"
                         android:paddingStart="8dp"
-                        android:text="Politics" />
+                        android:text="정치" />
+
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="280dp"
+                        android:src="@drawable/gavel_24px"
+                        app:tint="#3E3D3D" />
+
+
                 </LinearLayout>
 
                 <View
@@ -78,6 +87,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
+
 
                     <ImageView
                         android:layout_width="20dp"
@@ -89,9 +99,9 @@
                         android:id="@+id/Economy"
                         android:layout_width="100dp"
                         android:layout_height="48dp"
-                        android:gravity="center_vertical"
-                        android:paddingStart="8dp"
-                        android:text="Economy" />
+                        android:gravity=""
+                        android:text="경제" />
+
                 </LinearLayout>
 
                 <View
@@ -104,20 +114,21 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
+
 
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginLeft="10dp"
                         android:src="@drawable/group_24px" />
-
                     <TextView
                         android:id="@+id/Society"
                         android:layout_width="100dp"
                         android:layout_height="48dp"
                         android:gravity="center_vertical"
                         android:paddingStart="8dp"
-                        android:text="Society" />
+                        android:text="사회" />
+
                 </LinearLayout>
 
                 <View
@@ -130,20 +141,21 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
+
 
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginLeft="10dp"
                         android:src="@drawable/diversity_4_24px" />
-
                     <TextView
                         android:id="@+id/LifeNCulture"
                         android:layout_width="100dp"
                         android:layout_height="48dp"
                         android:gravity="center_vertical"
                         android:paddingStart="8dp"
-                        android:text="Life / Culture" />
+                        android:text="생활 / 문화" />
+
                 </LinearLayout>
 
                 <View
@@ -156,20 +168,21 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
+
 
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginLeft="10dp"
                         android:src="@drawable/globe_asia_24px" />
-
                     <TextView
                         android:id="@+id/World"
                         android:layout_width="100dp"
                         android:layout_height="48dp"
                         android:gravity="center_vertical"
                         android:paddingStart="8dp"
-                        android:text="World" />
+                        android:text="세계" />
+
                 </LinearLayout>
 
                 <View
@@ -182,6 +195,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
+
 
                     <ImageView
                         android:layout_width="20dp"
@@ -195,7 +209,7 @@
                         android:layout_height="48dp"
                         android:gravity="center_vertical"
                         android:paddingStart="8dp"
-                        android:text="IT / Science" />
+                        android:text="IT / 과학" />
                 </LinearLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>

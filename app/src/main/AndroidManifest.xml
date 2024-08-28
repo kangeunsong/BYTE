@@ -14,7 +14,13 @@
         android:theme="@style/Theme.OPEN__SW"
         tools:targetApi="31">
         <activity
-            android:name=".MypageActivity"
+            android:name=".MyFragment"
+            android:exported="true" />
+        <activity
+            android:name=".LikedActivity"
+            android:exported="true" />
+        <activity
+            android:name=".LikedSectionActivity"
             android:exported="true" />
         <activity
             android:name=".MainActivity"
