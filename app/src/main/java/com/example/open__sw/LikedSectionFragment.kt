@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
-class LikedSectionFragment : Fragment() {
+class LikedSectionFragment : Fragment(), NewsdetailFragment.OnLikeStatusChangedListener {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: NewsAdapter
@@ -41,9 +41,7 @@ class LikedSectionFragment : Fragment() {
 
         adapter.setOnItemClickListener { position ->
             val newsItem = newsList[position]
-          //?
             val dialog = LikedNewsDetailDialog.newInstance(sectionName, newsItem.date, newsItem.newsUID)
-
             dialog.setTargetFragment(this, 0)
             dialog.show(parentFragmentManager, "NewsDetailDialog")
         }
@@ -53,6 +51,30 @@ class LikedSectionFragment : Fragment() {
         return view
     }
 
+    override fun onLikeStatusChanged(isLiked: Boolean, sectionName: String, date: String, newsUID: String) {
+        if (isLiked) {
+            // Fetch the news details and add to the list
+            firestore.collection("AllNews").document(sectionName)
+                .collection(date).document(newsUID)
+                .get()
+                .addOnSuccessListener { document ->
+                    val title = document.getString("title") ?: "제목 없음"
+                    val newsItem = NewsItem(title, date, newsUID)
+                    newsList.add(newsItem)
+                    adapter.notifyDataSetChanged()
+                }
+        } else {
+            // Remove the news item from the list
+            removeNewsFromList(newsUID)
+        }
+    }
+    fun refreshNewsList() {
+        Log.d("LikedSectionFragment", "Refreshing news list")
+        val sectionName = arguments?.getString("sectionName") ?: return
+        loadLikedNews(sectionName)
+    }
+
+
     fun removeNewsFromList(newsUID: String) {
         val iterator = newsList.iterator()
         var position = -1
@@ -61,56 +83,44 @@ class LikedSectionFragment : Fragment() {
             position++
             if (newsItem.newsUID == newsUID) {
                 iterator.remove()
-                adapter.notifyItemRemoved(position) // 특정 위치의 아이템이 삭제되었음을 알림
+                adapter.notifyItemRemoved(position)
                 Log.d("LikedSectionFragment", "Removed item at position: $position")
                 Log.d("LikedSectionFragment", "Remaining items count: ${newsList.size}")
-
                 break
             }
         }
     }
 
-    fun refreshNewsList() {
-        Log.d("LikedSectionFragment", "Refreshing news list")
-        val sectionName = arguments?.getString("sectionName") ?: return
-        loadLikedNews(sectionName)
-    }
-
     private fun loadLikedNews(sectionName: String) {
         val uid = auth.currentUser?.uid
         if (uid != null) {
-            // MyPage > userUID > Liked > sectionName > news 경로에서 뉴스 UID 가져오기
             firestore.collection("MyPage").document(uid).collection("Liked")
                 .document(sectionName).collection("news")
                 .get()
                 .addOnSuccessListener { documents ->
                     newsList.clear()
                     for (document in documents) {
-                        val date = document.id  // news 컬렉션의 각 문서 ID가 날짜라고 가정
+                        val newsUID = document.id // 문서의 ID가 newsUID입니다.
+                        val date = document.getString("date") ?: continue // date 필드가 문서에 있어야 합니다.
 
-                        // 모든 필드에 대해 반복문 실행
-                        for (field in document.data.entries) {
-                            val newsUID = field.value as? String  // 필드 값이 newsUID로 가정
+                        Log.d("LikedSectionFragment", "Loaded newsUID: $newsUID for date: $date")
 
-                            // 로그 출력 추가
-                            Log.d("LikedSectionFragment", "Field Name: ${field.key}, newsUID: $newsUID")
-
-                            if (newsUID != null) {
-                                // Firestore에서 뉴스 타이틀 가져오기 (예: AllNews/sectionName/date/newsUID)
-                                firestore.collection("AllNews").document(sectionName)
-                                    .collection(date).document(newsUID)
-                                    .get()
-                                    .addOnSuccessListener { newsDocument ->
-                                        val title = newsDocument.getString("title") ?: "제목 없음"
-                                        val newsDate = newsDocument.getString("date") ?: date
-                                        newsList.add(NewsItem(title, newsDate, newsUID))
-                                        adapter.notifyDataSetChanged()
-                                    }
-                                    .addOnFailureListener { e ->
-                                        Log.e("LikedSectionFragment", "Failed to fetch news: $newsUID", e)
-                                    }
+                        firestore.collection("AllNews").document(sectionName)
+                            .collection(date).document(newsUID)
+                            .get()
+                            .addOnSuccessListener { newsDocument ->
+                                if (newsDocument.exists()) {
+                                    val title = newsDocument.getString("title") ?: "제목 없음"
+                                    val newsDate = newsDocument.getString("date") ?: date
+                                    newsList.add(NewsItem(title, newsDate, newsUID))
+                                    adapter.notifyDataSetChanged()
+                                } else {
+                                    Log.e("LikedSectionFragment", "News document does not exist for newsUID: $newsUID")
+                                }
                             }
-                        }
+                            .addOnFailureListener { e ->
+                                Log.e("LikedSectionFragment", "Failed to fetch news: $newsUID", e)
+                            }
                     }
                 }
                 .addOnFailureListener { e ->
@@ -120,4 +130,5 @@ class LikedSectionFragment : Fragment() {
             Log.e("LikedSectionFragment", "User UID is null, cannot load liked news.")
         }
     }
+
 }

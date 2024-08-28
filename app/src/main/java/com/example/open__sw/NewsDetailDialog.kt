@@ -58,7 +58,6 @@ class NewsDetailDialog : DialogFragment() {
             showUnlikeConfirmationDialog(sectionName, date, newsUID)
         }
 
-
         return view
     }
 
@@ -73,14 +72,11 @@ class NewsDetailDialog : DialogFragment() {
                     likeNumTextView.text = "Likes: ${document.getLong("likeNUM") ?: 0}"
                     newsUrlTextView.text = document.getString("newsURL") ?: "URL 없음"
 
-                    Log.e("NewsDetailDialog", "$newsUID")
                     val imageUrl = document.getString("imgURL")
                     if (!imageUrl.isNullOrEmpty()) {
-                        // 이미지 URL이 있을 경우 이미지를 로드
                         newsImageView.visibility = View.VISIBLE
                         Glide.with(this).load(imageUrl).into(newsImageView)
                     } else {
-                        // 이미지 URL이 없을 경우 ImageView를 숨김
                         newsImageView.visibility = View.GONE
                     }
                 }
@@ -107,36 +103,29 @@ class NewsDetailDialog : DialogFragment() {
 
         firestore.collection("MyPage").document(uid)
             .collection("Liked").document(sectionName)
-            .collection("news").document(date)
+            .collection("news").document(newsUID)
             .get()
             .addOnSuccessListener { document ->
                 if (document.exists()) {
-                    for (field in document.data?.entries.orEmpty()) {
-                        if (field.value == newsUID) {
-                            val fieldName = field.key
-                            firestore.runTransaction { transaction ->
-                                val likedNewsRef = firestore.collection("MyPage").document(uid)
-                                    .collection("Liked").document(sectionName)
-                                    .collection("news").document(date)
+                    val fieldName = document.id
+                    firestore.runTransaction { transaction ->
+                        val likedNewsRef = firestore.collection("MyPage").document(uid)
+                            .collection("Liked").document(sectionName)
+                            .collection("news").document(newsUID)
 
-                                val newsRef = firestore.collection("AllNews").document(sectionName)
-                                    .collection(date).document(newsUID)
+                        val newsRef = firestore.collection("AllNews").document(sectionName)
+                            .collection(date).document(newsUID)
 
-                                transaction.update(likedNewsRef, fieldName, FieldValue.delete())
-                                transaction.update(newsRef, "likeNUM", FieldValue.increment(-1))
-                            }.addOnSuccessListener {
-
-                                // targetFragment를 이용해 통신합니다.
-                                (targetFragment as? LikedSectionFragment)?.let { fragment ->
-                                    fragment.removeNewsFromList(newsUID)
-                                    fragment.refreshNewsList()
-                                }
-                                dismiss() // 다이얼로그 닫기
-                            }.addOnFailureListener { e ->
-                                Log.e("NewsDetailDialog", "Failed to unlike news and decrease likeNUM", e)
-                            }
-                            break
+                        transaction.delete(likedNewsRef)
+                        transaction.update(newsRef, "likeNUM", FieldValue.increment(-1))
+                    }.addOnSuccessListener {
+                        (targetFragment as? LikedSectionFragment)?.let { fragment ->
+                            fragment.removeNewsFromList(newsUID)
+                            fragment.refreshNewsList()
                         }
+                        dismiss()
+                    }.addOnFailureListener { e ->
+                        Log.e("NewsDetailDialog", "Failed to unlike news and decrease likeNUM", e)
                     }
                 }
             }
@@ -146,12 +135,12 @@ class NewsDetailDialog : DialogFragment() {
     }
 
     companion object {
-        fun newInstance(sectionName: String, date: String, newsUID: String): NewsDetailDialog {
+        fun newInstance(sectionName: String, date: String, newsUID: String): LikedNewsDetailDialog {
             val args = Bundle()
             args.putString("sectionName", sectionName)
             args.putString("date", date)
             args.putString("newsUID", newsUID)
-            val fragment = NewsDetailDialog()
+            val fragment = LikedNewsDetailDialog()
             fragment.arguments = args
             return fragment
         }

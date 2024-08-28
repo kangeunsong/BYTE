@@ -30,6 +30,8 @@ class NewsdetailFragment : BottomSheetDialogFragment() {
 
     private var isLiked: Boolean = false
 
+    private var onLikeStatusChangedListener: OnLikeStatusChangedListener? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -68,7 +70,6 @@ class NewsdetailFragment : BottomSheetDialogFragment() {
                     val newsURL = document.getString("newsURL")
                     newsLink.text = newsURL ?: "URL 없음"
 
-                    // 뉴스 URL 활성화 (클릭 시 브라우저로 이동)
                     newsLink.setOnClickListener {
                         newsURL?.let {
                             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(it))
@@ -95,25 +96,24 @@ class NewsdetailFragment : BottomSheetDialogFragment() {
         val likedRef = firestore.collection("MyPage").document(userUID)
             .collection("Liked").document(sectionName)
 
-        // Check if the news is already liked
-        likedRef.get().addOnSuccessListener { document ->
+        // Check if the news is liked by the user
+        likedRef.collection("news").document(newsUID).get().addOnSuccessListener { document ->
             isLiked = document.exists()
             updateLikeButtonIcon()
+        }.addOnFailureListener { e ->
+            // 에러 처리
         }
 
         likeButton.setOnClickListener {
             if (isLiked) {
-                // Unlike
                 unlikeNews(sectionName, date, newsUID, userUID)
             } else {
-                // Like
                 likeNews(sectionName, date, newsUID, userUID)
             }
         }
     }
 
     private fun likeNews(sectionName: String, date: String, newsUID: String, userUID: String) {
-        // Update AllNews and TodayNews likeNUM +1
         firestore.runBatch { batch ->
             val allNewsRef = firestore.collection("AllNews").document(sectionName)
                 .collection(date).document(newsUID)
@@ -123,20 +123,22 @@ class NewsdetailFragment : BottomSheetDialogFragment() {
             batch.update(allNewsRef, "likeNUM", FieldValue.increment(1))
             batch.update(todayNewsRef, "likeNUM", FieldValue.increment(1))
 
-            // Add to MyPage Liked collection
+            // 이름이 newsUID인 문서를 생성하여 저장
             val likedRef = firestore.collection("MyPage").document(userUID)
                 .collection("Liked").document(sectionName)
-            batch.set(likedRef, mapOf("newsUID" to newsUID))
+                .collection("news").document(newsUID)  // 여기서 newsUID를 문서 이름으로 사용
+            batch.set(likedRef, mapOf("date" to date)) // date 필드를 문서에 저장
         }.addOnSuccessListener {
             isLiked = true
+            onLikeStatusChangedListener?.onLikeStatusChanged(true, sectionName, date, newsUID)
             updateLikeButtonIcon()
         }.addOnFailureListener { e ->
             // 에러 처리
         }
     }
 
+
     private fun unlikeNews(sectionName: String, date: String, newsUID: String, userUID: String) {
-        // Update AllNews and TodayNews likeNUM -1
         firestore.runBatch { batch ->
             val allNewsRef = firestore.collection("AllNews").document(sectionName)
                 .collection(date).document(newsUID)
@@ -146,17 +148,20 @@ class NewsdetailFragment : BottomSheetDialogFragment() {
             batch.update(allNewsRef, "likeNUM", FieldValue.increment(-1))
             batch.update(todayNewsRef, "likeNUM", FieldValue.increment(-1))
 
-            // Remove from MyPage Liked collection
+            // newsUID를 문서 이름으로 사용하여 문서를 삭제
             val likedRef = firestore.collection("MyPage").document(userUID)
                 .collection("Liked").document(sectionName)
+                .collection("news").document(newsUID)  // 여기서 newsUID를 문서 이름으로 사용
             batch.delete(likedRef)
         }.addOnSuccessListener {
             isLiked = false
+            onLikeStatusChangedListener?.onLikeStatusChanged(false, sectionName, date, newsUID)
             updateLikeButtonIcon()
         }.addOnFailureListener { e ->
             // 에러 처리
         }
     }
+
 
     private fun updateLikeButtonIcon() {
         if (isLiked) {
@@ -164,6 +169,14 @@ class NewsdetailFragment : BottomSheetDialogFragment() {
         } else {
             likeButton.setImageResource(R.drawable.ic_like_empty)
         }
+    }
+
+    fun setOnLikeStatusChangedListener(listener: OnLikeStatusChangedListener) {
+        onLikeStatusChangedListener = listener
+    }
+
+    interface OnLikeStatusChangedListener {
+        fun onLikeStatusChanged(isLiked: Boolean, sectionName: String, date: String, newsUID: String)
     }
 
     companion object {
