@@ -3,54 +3,67 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp">
-
+    android:background="@drawable/background_bottom_sheet"
+   >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="CATEGORY"
+        android:textColor="@color/grey"
+        android:textAlignment="center"
+        android:textSize="14dp" />
     <TextView
         android:id="@+id/option_politics"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
-        android:text="Politics"
-        android:textSize="18sp" />
+        android:text="정치"
+        android:textAlignment="center"
+        android:textSize="18dp" />
 
     <TextView
         android:id="@+id/option_economy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
-        android:text="Economy"
-        android:textSize="18sp" />
+        android:text="경제"
+        android:textAlignment="center"
+        android:textSize="18dp" />
 
     <TextView
         android:id="@+id/option_society"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
-        android:text="Society"
-        android:textSize="18sp" />
+        android:text="사회"
+        android:textAlignment="center"
+        android:textSize="18dp" />
 
     <TextView
         android:id="@+id/option_life_culture"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
-        android:text="Life/Culture"
-        android:textSize="18sp" />
+        android:text="생활/문화"
+        android:textAlignment="center"
+        android:textSize="18dp" />
 
     <TextView
         android:id="@+id/option_world"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
-        android:text="World"
-        android:textSize="18sp" />
+        android:text="세계"
+        android:textAlignment="center"
+        android:textSize="18dp" />
 
     <TextView
         android:id="@+id/option_it_science"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
-        android:text="IT/Science"
-        android:textSize="18sp" />
+        android:text="IT/과학"
+        android:textAlignment="center"
+        android:textSize="18dp" />
 
 </LinearLayout>

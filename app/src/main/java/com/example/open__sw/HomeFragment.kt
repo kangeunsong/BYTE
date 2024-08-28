@@ -1,100 +1,81 @@
 package com.example.open__sw
 
-import alirezat775.lib.carouselview.Carousel
-import alirezat775.lib.carouselview.CarouselListener
-import alirezat775.lib.carouselview.CarouselView
 import android.os.Bundle
-import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
+import com.example.open__sw.adapter.DataAdapter
 import com.example.open__sw.databinding.FragmentHomeBinding
+import com.example.open__sw.model.DataModel
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
-class HomeFragment : Fragment(R.layout.fragment_home) {
+class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
-    private val binding get() = _binding!!
     private lateinit var firestore: FirebaseFirestore
-    private var section: String = "Politics"
+    private val binding get() = _binding!!
+    private lateinit var adapter: DataAdapter
+    private var sectionEG: String? = "Politics"
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        firestore = FirebaseFirestore.getInstance()
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        _binding = FragmentHomeBinding.bind(view)
-        firestore = Firebase.firestore
 
-        // 액티비티를 안전하게 처리
-        val activity = requireActivity() as? AppCompatActivity
-        if (activity != null) {
-            val adapter = SampleAdapter()
-            val carousel = Carousel(activity, binding.carouselView, adapter)
-            carousel.setOrientation(CarouselView.VERTICAL, false)
-            carousel.scaleView(true)
+        sectionEG = arguments?.getString("sectionEG")
+        adapter = DataAdapter(arrayListOf())
+        binding.recycler.adapter = adapter
 
-            fetchNewsData(section, adapter)
+        binding.recycler.apply {
+            this.adapter = adapter
+            set3DItem(true)
+            setAlpha(true)
+            setOrientation(RecyclerView.VERTICAL)
+            setIntervalRatio(0.7f)
+        }
 
-            parentFragmentManager.setFragmentResultListener("requestKey", this) { _, bundle ->
-                val selectedSection = bundle.getString("sectionEG") ?: "Politics"
-                if (section != selectedSection) {
-                    section = selectedSection
-                    fetchNewsData(section, adapter) // 새로 데이터 로드
-                }
-            }
-
-            carousel.addCarouselListener(object : CarouselListener {
-                override fun onPositionChange(position: Int) {
-                    Log.d("HomeFragment", "currentPosition : $position")
-                }
-
-                override fun onScroll(dx: Int, dy: Int) {
-                    Log.d("HomeFragment", "onScroll dx : $dx -- dy : $dy")
-                }
-            })
-
-            adapter.setOnClickListener(object : SampleAdapter.OnClick {
-                override fun click(model: SampleModel) {
-                    // 클릭 시의 행동 처리
-                }
-            })
-        } else {
-            Log.e("HomeFragment", "Activity is not an instance of AppCompatActivity")
+        val currentDate = getCurrentDate()
+        sectionEG?.let {
+            fetchNewsData(currentDate, it)
         }
     }
 
-    fun updateSection(newSection: String) {
-        if (section != newSection) {
-            section = newSection
-            fetchNewsData(section, binding.carouselView.adapter as SampleAdapter)
+    private fun fetchNewsData(date: String, sectionName: String) {
+        val newsRef = firestore.collection("TodayNews").document(date).collection(sectionName)
+
+        newsRef.get().addOnSuccessListener { documents ->
+            val newsList = ArrayList<DataModel>()
+            for (document in documents) {
+                val title = document.getString("title") ?: ""
+                val summary = document.getString("summary") ?: ""
+                val newsURL = document.getString("newsURL") ?: ""
+                val imgURL = document.getString("imgURL") ?: ""
+                val newsUID = document.id // Firestore document ID를 newsUID로 사용
+
+                // DataModel에 sectionName과 date를 포함시켜 생성
+                newsList.add(DataModel(title, summary, newsURL, imgURL, newsUID, sectionName, date))
+            }
+            adapter.updateData(newsList)
+        }.addOnFailureListener { exception ->
+            // 에러 처리
         }
     }
 
-    private fun fetchNewsData(section: String, adapter: SampleAdapter) {
-        val today = getCurrentDateString() // Helper function to get current date in 'yyyyMMdd' format
-
-        firestore.collection("TodayNews").document(today).collection(section)
-            .get()
-            .addOnSuccessListener { documents ->
-                val items = documents.map { document ->
-                    SampleModel(
-                        title = document.getString("title") ?: "No Title",
-                        summary = document.getString("summary") ?: "No Summary",
-                        newsURL = document.getString("newsURL") ?: "",
-                        imgURL = document.getString("imgURL") ?: ""
-                    )
-                }
-                adapter.addItems(items)
-            }
-            .addOnFailureListener { exception ->
-                Log.e("HomeFragment", "Error getting documents: ", exception)
-            }
-    }
-
-    private fun getCurrentDateString(): String {
-        val date = java.util.Calendar.getInstance().time
-        val formatter = java.text.SimpleDateFormat("yyyyMMdd", java.util.Locale.getDefault())
-        return formatter.format(date)
+    private fun getCurrentDate(): String {
+        val dateFormat = SimpleDateFormat("yyyyMMdd", Locale.getDefault())
+        return dateFormat.format(Date())
     }
 
     override fun onDestroyView() {
