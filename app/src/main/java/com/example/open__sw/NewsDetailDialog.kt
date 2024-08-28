@@ -73,6 +73,7 @@ class NewsDetailDialog : DialogFragment() {
                     likeNumTextView.text = "Likes: ${document.getLong("likeNUM") ?: 0}"
                     newsUrlTextView.text = document.getString("newsURL") ?: "URL 없음"
 
+                    Log.e("NewsDetailDialog", "$newsUID")
                     val imageUrl = document.getString("imgURL")
                     if (!imageUrl.isNullOrEmpty()) {
                         // 이미지 URL이 있을 경우 이미지를 로드

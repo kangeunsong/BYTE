@@ -14,7 +14,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 
-class LikwdNewsDetailDialog : DialogFragment() {
+class LikedNewsDetailDialog : DialogFragment() {
 
     private lateinit var titleTextView: TextView
     private lateinit var summaryTextView: TextView
@@ -145,12 +145,12 @@ class LikwdNewsDetailDialog : DialogFragment() {
     }
 
     companion object {
-        fun newInstance(sectionName: String, date: String, newsUID: String): LikwdNewsDetailDialog {
+        fun newInstance(sectionName: String, date: String, newsUID: String): LikedNewsDetailDialog {
             val args = Bundle()
             args.putString("sectionName", sectionName)
             args.putString("date", date)
             args.putString("newsUID", newsUID)
-            val fragment = LikwdNewsDetailDialog()
+            val fragment = LikedNewsDetailDialog()
             fragment.arguments = args
             return fragment
         }

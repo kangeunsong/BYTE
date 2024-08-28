@@ -42,7 +42,7 @@ class LikedSectionFragment : Fragment() {
         adapter.setOnItemClickListener { position ->
             val newsItem = newsList[position]
           //?
-            val dialog = LikwdNewsDetailDialog.newInstance(sectionName, newsItem.date, newsItem.newsUID)
+            val dialog = LikedNewsDetailDialog.newInstance(sectionName, newsItem.date, newsItem.newsUID)
 
             dialog.setTargetFragment(this, 0)
             dialog.show(parentFragmentManager, "NewsDetailDialog")
