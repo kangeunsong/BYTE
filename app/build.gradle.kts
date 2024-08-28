@@ -53,7 +53,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
+    implementation ("org.jetbrains.kotlin:kotlin-script-runtime:1.8.0")
     implementation ("androidx.recyclerview:recyclerview:1.2.0-alpha02")
     implementation ("com.github.sparrow007:carouselrecyclerview:1.2.6")
     implementation("androidx.drawerlayout:drawerlayout:1.2.0")
@@ -72,6 +72,4 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore-ktx:24.4.0")
     implementation("com.github.bumptech.glide:glide:4.15.0")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.15.0")
-
-    implementation(kotlin("script-runtime"))
 }
