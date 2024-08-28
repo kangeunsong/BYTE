@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import android.widget.TextView
 import android.widget.Toast
@@ -43,8 +44,8 @@ class MypageFragment : Fragment() {
         loadUserInfo()
 
         // "정보수정"을 눌렀을 때 비밀번호 확인 다이얼로그 띄우기
-        val imageView = view.findViewById<ImageView>(R.id.editIV)
-        imageView.setOnClickListener {
+        val LinearLayout = view.findViewById<LinearLayout>(R.id.editprofile)
+        LinearLayout.setOnClickListener {
             showConfirmPasswordDialog()
         }
 

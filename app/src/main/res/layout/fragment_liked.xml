@@ -67,6 +67,7 @@
                         android:paddingStart="8dp"
                         android:text="정치" />
 
+
                     <ImageView
                         android:layout_width="15dp"
                         android:layout_height="match_parent"
@@ -99,7 +100,8 @@
                         android:id="@+id/Economy"
                         android:layout_width="100dp"
                         android:layout_height="48dp"
-                        android:gravity=""
+                        android:gravity="center_vertical"
+                        android:paddingStart="8dp"
                         android:text="경제" />
 
                 </LinearLayout>
