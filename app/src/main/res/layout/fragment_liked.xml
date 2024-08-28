@@ -57,7 +57,7 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginLeft="10dp"
-                        android:src="@drawable/heart" />
+                        android:src="@drawable/gavel_24px" />
 
                     <TextView
                         android:id="@+id/Politics"
@@ -66,13 +66,6 @@
                         android:gravity="center_vertical"
                         android:paddingStart="8dp"
                         android:text="Politics" />
-
-                    <ImageView
-                        android:layout_width="15dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="280dp"
-                        android:src="@drawable/baseline_arrow_forward_ios_24"
-                        app:tint="#3E3D3D" />
                 </LinearLayout>
 
                 <View
@@ -90,7 +83,7 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginLeft="10dp"
-                        android:src="@drawable/heart" />
+                        android:src="@drawable/attach_money_24px" />
 
                     <TextView
                         android:id="@+id/Economy"
@@ -99,13 +92,6 @@
                         android:gravity="center_vertical"
                         android:paddingStart="8dp"
                         android:text="Economy" />
-
-                    <ImageView
-                        android:layout_width="15dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="280dp"
-                        android:src="@drawable/baseline_arrow_forward_ios_24"
-                        app:tint="#3E3D3D" />
                 </LinearLayout>
 
                 <View
@@ -123,7 +109,7 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginLeft="10dp"
-                        android:src="@drawable/heart" />
+                        android:src="@drawable/group_24px" />
 
                     <TextView
                         android:id="@+id/Society"
@@ -132,13 +118,6 @@
                         android:gravity="center_vertical"
                         android:paddingStart="8dp"
                         android:text="Society" />
-
-                    <ImageView
-                        android:layout_width="15dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="280dp"
-                        android:src="@drawable/baseline_arrow_forward_ios_24"
-                        app:tint="#3E3D3D" />
                 </LinearLayout>
 
                 <View
@@ -156,7 +135,7 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginLeft="10dp"
-                        android:src="@drawable/heart" />
+                        android:src="@drawable/diversity_4_24px" />
 
                     <TextView
                         android:id="@+id/LifeNCulture"
@@ -165,13 +144,6 @@
                         android:gravity="center_vertical"
                         android:paddingStart="8dp"
                         android:text="Life / Culture" />
-
-                    <ImageView
-                        android:layout_width="15dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="280dp"
-                        android:src="@drawable/baseline_arrow_forward_ios_24"
-                        app:tint="#3E3D3D" />
                 </LinearLayout>
 
                 <View
@@ -189,7 +161,7 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginLeft="10dp"
-                        android:src="@drawable/heart" />
+                        android:src="@drawable/globe_asia_24px" />
 
                     <TextView
                         android:id="@+id/World"
@@ -198,13 +170,6 @@
                         android:gravity="center_vertical"
                         android:paddingStart="8dp"
                         android:text="World" />
-
-                    <ImageView
-                        android:layout_width="15dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="280dp"
-                        android:src="@drawable/baseline_arrow_forward_ios_24"
-                        app:tint="#3E3D3D" />
                 </LinearLayout>
 
                 <View
@@ -222,7 +187,7 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginLeft="10dp"
-                        android:src="@drawable/heart" />
+                        android:src="@drawable/psychology_24px" />
 
                     <TextView
                         android:id="@+id/ITNScience"
@@ -231,13 +196,6 @@
                         android:gravity="center_vertical"
                         android:paddingStart="8dp"
                         android:text="IT / Science" />
-
-                    <ImageView
-                        android:layout_width="15dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="280dp"
-                        android:src="@drawable/baseline_arrow_forward_ios_24"
-                        app:tint="#3E3D3D" />
                 </LinearLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
