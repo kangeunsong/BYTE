@@ -104,6 +104,7 @@
 - **저작권**: [sparrow007]
 - **라이선스**: [Apache License 2.0](https://opensource.org/licenses/Apache-2.0)
 - **라이선스 URL**: https://opensource.org/licenses/Apache-2.0
+-( https://github.com/MyatKaung95/CarouselRecyclerview/blob/main/README.md#license)
 (https://github.com/sparrow007/CarouselRecyclerview/blob/main/LICENSE)
 이 프로젝트는 CarouselRecyclerview의 일부 코드를 사용하고 있습니다. 이 코드는 [Apache License 2.0](https://opensource.org/licenses/Apache-2.0) 하에 라이센스가 부여되어 있습니다. 라이선스의 전체 내용은 [LICENSE](https://github.com/sparrow007/CarouselRecyclerview/blob/main/LICENSE)에서 확인할 수 있습니다.
 ## DataModel 변경 사항
