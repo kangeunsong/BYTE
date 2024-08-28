@@ -47,12 +47,14 @@ class MypageFragment : Fragment() {
         imageView.setOnClickListener {
             showConfirmPasswordDialog()
         }
+
         var likeTextView = view.findViewById<TextView>(R.id.like)
         // "좋아요" 텍스트뷰 클릭 이벤트
         likeTextView.setOnClickListener {
             val intent = Intent(requireContext(), LikedActivity::class.java)
             startActivity(intent)
         }
+
 
         return view
     }

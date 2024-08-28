@@ -4,7 +4,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
+
     android:background="@drawable/background_bottom_sheet">
+
+
 
     <ImageView
         android:id="@+id/closeButton"
@@ -59,7 +62,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="좋아요 취소"
-        android:backgroundTint="@color/grey"
+
+       android:backgroundTint="@color/grey"
+
         android:textColor="@android:color/white" />
 
 </LinearLayout>
