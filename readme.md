@@ -96,3 +96,4 @@
 <br/>
 
 ## 라이센스
+이 프로젝트는 [CarouselRecyclerview](https://github.com/sparrow007/CarouselRecyclerview.git)의 일부 코드를 사용합니다. 이 코드는 [Apache-2.0 license] 하에 라이센스가 부여되어 있습니다. 라이선스의 전체 내용은 [LICENSE](LICENSE)에서 확인할 수 있습니다.
