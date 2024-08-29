@@ -55,6 +55,26 @@
 <br/>
 
 ## 프로젝트 사용 방법
+보안상의 이유로 해당 프로젝트의 Firebase 데이터베이스에 접근하기 위한 json 파일은 삭제하였다. 각 데이터들의 경로는 api.py와 NewsdetailFragment.kt, NewsDetailDialog.kt 등의 코드에서 볼 수 있다.
+
+<br/>
+
+api.py는 아래의 모듈을 필요로 한다. 
+> Flask==2.1.1
+
+> kobart-transformers==0.1.4
+
+> transformers==4.32.1
+
+> torch==2.0.1
+
+> requests==2.32.3
+
+> beautifulsoup4==4.12.3
+
+> firebase-admin==6.5.0
+
+> (+ Python 3.9.13)
 
 <br/>
 <br/>
