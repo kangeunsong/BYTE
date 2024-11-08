@@ -119,22 +119,7 @@ api.py는 아래의 모듈을 필요로 한다.
 
 이 프로젝트는 다음과 같은 오픈소스 라이브러리를 사용합니다:
 
-### CarouselRecyclerview
-
-- **저작권**: [sparrow007]
-- **라이선스**: [Apache License 2.0](https://opensource.org/licenses/Apache-2.0)
-- **라이선스 URL**: https://opensource.org/licenses/Apache-2.0
--( https://github.com/MyatKaung95/CarouselRecyclerview/blob/main/README.md#license)
-(https://github.com/sparrow007/CarouselRecyclerview/blob/main/LICENSE)
-이 프로젝트는 CarouselRecyclerview의 일부 코드를 사용하고 있습니다. 이 코드는 [Apache License 2.0](https://opensource.org/licenses/Apache-2.0) 하에 라이센스가 부여되어 있습니다. 라이선스의 전체 내용은 [LICENSE](https://github.com/sparrow007/CarouselRecyclerview/blob/main/LICENSE)에서 확인할 수 있습니다.
-## DataModel 변경 사항
-이 프로젝트에서는 원본 프로젝트의 `DataModel` 클래스를 수정하였습니다. 원본 클래스는 `img`와 `text` 필드를 가지는 간단한 구조였으며, 수정된 클래스는 더 많은 정보를 포함합니다. 
-## DataAdapter 변경사항
-이 프로젝트에서는 원본 프로젝트의 `DataAdapter` 클래스를 수정하였습니다. `itemChanged`, `removeData` 메소드를 삭제, 필요한 데이터를 받아옵니다.
-## MainActivity 변경사항
-이 프로젝트에서는 원본 프로젝트의 `MainActivity`클래스를 수정하였습니다. `HomeFragment`에서 동작할수있도록 수정하였으며 setOrientationt,setIntervalRatio속성을 수정하였습니다.
-
-**저작권 고지:**
-- 원본 코드와 함께 제공된 모든 저작권 고지와 라이선스 고지를 유지해야 합니다. 원본 소스에 포함된 저작권 고지를 수정하거나 삭제하지 말아야 합니다.
-
+- 저작권: [sparrow007] (https://github.com/sparrow007/CarouselRecyclerview)
+- 라이선스: [Apache License 2.0](https://opensource.org/licenses/Apache-2.0)
+- 라이선스 URL: https://opensource.org/licenses/Apache-2.0
 
